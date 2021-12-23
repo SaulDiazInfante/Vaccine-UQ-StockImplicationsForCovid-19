@@ -34,6 +34,7 @@ function montecarlo_sampling(
     tag = Dates.format(d, "yyyy-mm-dd_HH:MM)") 
     sufix_file_name = ".csv"
     csv_file_name = prefix_file_name * tag * sufix_file_name
-    CSV.write(csv_file_name, df_mc)
-    return df_mc
+    path = "./data/" * csv_file_name
+    CSV.write(path, df_mc)
+    return df_mc, path
 end

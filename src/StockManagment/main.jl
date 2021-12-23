@@ -13,9 +13,9 @@ include("montecarlo_sampling.jl")
 # Setup
 sampling_size = 1
 # TODO: tagger funtion for time solution file_name
-df_mc = montecarlo_sampling(sampling_size) 
+df_mc, path = montecarlo_sampling(sampling_size) 
 parameters = load_parameters()
-fig1, fig2 = get_charts("df_mc(2021-12-17_12:05).csv", parameters)
+fig1, fig2 = get_charts(path, parameters)
 fig1
 # TODO: tagger
 # TODO: Explore Noise with a mean reverting process,
