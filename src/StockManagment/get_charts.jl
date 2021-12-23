@@ -15,7 +15,7 @@ function get_charts(data_file, parameters)
     t = df_solution.time
     trace_stock_evolution =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.K_stock,
             name = "Stock Evolution"
@@ -23,14 +23,14 @@ function get_charts(data_file, parameters)
 
     trace_action_evolution =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.action,
             name = "Action"
         )
     trace_S =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.S,
             color = "red",
@@ -38,7 +38,7 @@ function get_charts(data_file, parameters)
         )
     trace_E =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.E,
             color="blue",
@@ -47,7 +47,7 @@ function get_charts(data_file, parameters)
 
     trace_I_S =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.I_S,
             name = "I_S"
@@ -55,7 +55,7 @@ function get_charts(data_file, parameters)
     #Graph
     trace_I_A =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.I_A,
             name = "I_A"
@@ -63,7 +63,7 @@ function get_charts(data_file, parameters)
 
     trace_R =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.R,
             color = "yellow",
@@ -72,7 +72,7 @@ function get_charts(data_file, parameters)
 
     trace_D =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.D,
             color = "magenta",
@@ -80,7 +80,7 @@ function get_charts(data_file, parameters)
         )
     trace_V =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.V,
             color="green",
@@ -88,7 +88,7 @@ function get_charts(data_file, parameters)
         )
     trace_X_vac =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.X_vac,
             color="green",
@@ -96,7 +96,7 @@ function get_charts(data_file, parameters)
         )
     trace_K_stock =
         scatter(
-            mode = "markers+lines",
+            mode = "lines",
             x = t,
             y = N * df_solution.K_stock,
             name = "K_stock"
