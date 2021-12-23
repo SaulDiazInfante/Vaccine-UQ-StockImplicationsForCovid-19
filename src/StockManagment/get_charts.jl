@@ -3,11 +3,11 @@ function get_charts(data_file, parameters)
     df_solution = DataFrame(CSV.File(data_file))
     config = PlotConfig(
     toImageButtonOptions=attr(
-            format="svg", # one of png, svg, jpeg, webp
+            format="svg",
             filename="custom_image",
             height=500,
             width=700,
-            scale=1 # Multiply title/legend/axis/canvas sizes by this factor
+            scale=1 
         ).fields
     )
 #
@@ -94,7 +94,6 @@ function get_charts(data_file, parameters)
             color="green",
             name = "X_vac"
         )
-
     trace_K_stock =
         scatter(
             mode = "markers+lines",
@@ -104,29 +103,25 @@ function get_charts(data_file, parameters)
         )
     ##
     layout = Layout(
-        #title="Evolution",
-        #xaxis_title="time (days)",
-        #yaxis_title="Prevalence",
-        #legend_title="Epidemic States",
+        # title="Evolution",
+        # xaxis_title="time (days)",
+        # yaxis_title="Prevalence",
+        # legend_title="Epidemic States",
             font=attr(
             family="Courier New, monospace",
             size=12,
             color="black"
             )
         )
-    ##
     ## subplot dashboard
     fig = make_subplots(
         rows=4, cols=2,
         column_widths=[0.5, 0.5],
         row_heights=[0.25, 0.25, 0.25, 0.25],
         subplot_titles=[
-            "Susceptible" "Exposed";
-            "Infected_S" "Infected_A";
-            "Recovered"  "Death";
-            "Vaccinated" "Jab counter"
+        "Susceptible"  "Infected_S" "Recovered" "Vaccinated";
+        "Exposed" "Infected_A" "Death" "Jab counter"
         ]
-        
     )
     #
     add_trace!(
@@ -178,21 +173,18 @@ function get_charts(data_file, parameters)
     open("./plot_fig.html", "w") do io
         PlotlyBase.to_html(io, fig.plot)
     end
-
+    #
     # Plottting action and Vaccine Stock
     config = PlotConfig(
         toImageButtonOptions=attr(
-            format="svg", # one of png, svg, jpeg, webp
+            format="svg",
             filename="custom_image",
             height=500,
             width=700,
-            scale=1 # Multiply title/legend/axis/canvas sizes by this factor
+            scale=1
         ).fields
     )
     layout = Layout(
-        #title="Evolution",
-        #xaxis_title="time (days)",
-        #yaxis_title="Prevalence",
         legend_title="Epidemic States",
             font=attr(
             family="Courier New, monospace",
@@ -206,13 +198,9 @@ function get_charts(data_file, parameters)
         rows=2, cols=1,
         column_widths=[1.0],
         row_heights=[0.5, .5],
-        #subplot_titles=["Stock avalible"; "Reserve vaccine recomended"]
+        subplot_titles=["Stock avalible" "Reserve vaccine recomended"]
     )
     layout2 = Layout(
-        #title="Evolution",
-        #xaxis_title="time (days)",
-        #yaxis_title="Stock/Vaccination rate",
-        #legend_title="Stock",
             font=attr(
             family="Courier New, monospace",
             size=12,

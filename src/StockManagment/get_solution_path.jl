@@ -67,7 +67,7 @@ function get_solution_path!(json_file_name="parameters_model.json")
         )
     prefix = "df_solution_"
     sufix = "1.csv"
-    file = prefix * sufix
+    file = "./data/" * prefix * sufix
     df_solution_1 =
     save_interval_solution(
         t_interval_1, solution_1;
@@ -81,6 +81,7 @@ function get_solution_path!(json_file_name="parameters_model.json")
     df_solution = [df_solution; df_solution_1]
     #
     # Solution on each t_interval
+    
     for t in 2:(length(parameters.t_delivery) - 1)
         h = (parameters.t_delivery[t + 1] -
             parameters.t_delivery[t]) / N_grid_size
@@ -91,15 +92,17 @@ function get_solution_path!(json_file_name="parameters_model.json")
                 parameters.t_delivery[t+1],
                 N_grid_size
         )
+        # initial condition for left bound interval
         solution_list_time = push!(solution_list_time, t_interval)
         x_t = solution_list[t - 1][end, :]
         k_t =x_t.K_stock + parameters.k_stock[t] / parameters.N[t]
+        parameters.X_vac_interval[t] = x_t.X_vac
         X_Ct = get_vaccine_stock_coverage(k_t, parameters)
         t_delivery_t = parameters.t_delivery[t + 1]
         a_t = get_vaccine_action!(X_Ct, t_delivery_t, parameters)
         solution_t = get_interval_solution!(x_t, a_t, k_t, parameters)
         sufix = "$(t)"*".csv"
-        file = prefix*sufix
+        file = "./data/" * prefix * sufix
         df_solution_t = 
             save_interval_solution(
                 t_interval, solution_t; 
