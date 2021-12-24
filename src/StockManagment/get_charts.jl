@@ -165,10 +165,10 @@ function get_charts(data_file, parameters)
         row=4, col=2
     )
     relayout!(
-    fig,
-    title="Epidemic sates",
-    xaxis_title = "time (days)",
-    yaxis_title = "Prevalence"
+        fig,
+        title="Epidemic sates",
+        xaxis_title = ["time (days)" "time (days)"],
+        yaxis_title = ["Number of jabs" "Jabs / day"]
     )
     open("./plot_fig.html", "w") do io
         PlotlyBase.to_html(io, fig.plot)
@@ -198,7 +198,9 @@ function get_charts(data_file, parameters)
         rows=2, cols=1,
         column_widths=[1.0],
         row_heights=[0.5, .5],
-        subplot_titles=["Stock avalible" "Reserve vaccine recomended"]
+        subplot_titles=[
+            "Available Vaccine Stock" "Vaccination Rate (dosis/day)"
+        ]
     )
     layout2 = Layout(
             font=attr(
@@ -221,8 +223,8 @@ function get_charts(data_file, parameters)
     relayout!(
         fig2,
         title="Evolution vaccine stock to applied an action",
-        xaxis_title = "time (days)",
-        yaxis_title = "Prevalence"
+        xaxis_title = ["time (days)" "time (days)"],
+        yaxis_title = ["Number of jabs" "Jabs per day"]
     )
     open("./plot_fig2.html", "w") do io
         PlotlyBase.to_html(io, fig2.plot)
