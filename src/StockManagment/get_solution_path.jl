@@ -9,8 +9,7 @@ include("get_interval_solution.jl")
 include("get_stencil_projection.jl")
 include("get_charts.jl")
 
-function get_solution_path!(json_file_name="parameters_model.json")
-    parameters = load_parameters(json_file_name);
+function get_solution_path!(parameters::DataFrame)
     N_grid_size = parameters.N_grid_size[1];
     solution = zeros(Float64, N_grid_size, 11);
     #unpack initial condition
@@ -112,5 +111,6 @@ function get_solution_path!(json_file_name="parameters_model.json")
         df_solution = [df_solution; df_solution_t]
         solution_list_time = push!(solution_list_time, t_interval)
     end
+    CSV.write("./data/df_solution.csv", df_solution)
     return x_0, df_solution
 end
