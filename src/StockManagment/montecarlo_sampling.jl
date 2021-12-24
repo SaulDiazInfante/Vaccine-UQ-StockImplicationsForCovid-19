@@ -34,7 +34,7 @@ function montecarlo_sampling(
         x0, df = get_solution_path!(par);
         idx_path_par = idx * ones(Int64, size(par)[1]);
         idx_path = idx * ones(Int64, size(df)[1]);
-        insertcols!(par, 31, :idx_path => idx_path_par_path);
+        insertcols!(par, 31, :idx_path => idx_path_par);
         insertcols!(df, 13, :idx_path => idx_path);
         df_par = [df_par; par];        
         df_mc = [df_mc; df]   

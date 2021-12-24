@@ -12,7 +12,7 @@ include("get_solution_path.jl")
 include("get_stochastic_perturbation.jl")
 include("montecarlo_sampling.jl")
 # Setup
-sampling_size = 2
+sampling_size = 3
 # TODO: tagger funtion for time solution file_name
 df_par, df_mc, path_par, path_mc = montecarlo_sampling(sampling_size) 
 last_trajectory_path = "./data/df_solution.csv"
