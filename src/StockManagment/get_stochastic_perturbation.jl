@@ -1,4 +1,4 @@
-import Distributions
+using  Distributions
 include("load_parameters.jl")
 
 function get_stochastic_perturbation(
@@ -14,34 +14,36 @@ function get_stochastic_perturbation(
     # u = Uniform(0, 0.5)
     aux_t[t] = t_delivery[t]
     aux_k[t] = k_stock[t]
-    print(
-        "\n t: ",
-        t,
-        "\tt_delivery: ",
-        t_delivery[t],
-        "\t", aux_t[t],
-        "\t", k_stock[t],
-        "\t", aux_k[t],
-        "\n" 
-    )
+    # print(
+    #    "\n t: ",
+    #    t,
+    #    "\tt_delivery: ",
+    #    t_delivery[t],
+    #    "\t", aux_t[t],
+    #    "\t", k_stock[t],
+    #    "\t", aux_k[t],
+    #    "\n" 
+    #)
 
     for t in 2: length(t_delivery)
         eta_t = Normal(k_stock[t], 0.1 * k_stock[t])
         delta_t = t_delivery[t] - t_delivery[t-1]
-        tau_t = Normal(t_delivery[t] , 0.16667 * delta_t)
-        #aux_t[t] = aux_t[t-1] + delta_t * (1.0 + rand(u, 1)[1])  
-        tau = rand(tau_t, 1)[1]
-        aux_t[t] = tau
+        # tau = Normal(0 , sqrt(delta_t))
+        tau = Uniform(.25 * delta_t, 1.5 * delta_t) 
+        delta_tau = rand(tau, 1 )[1]
+        # aux_t[t] = aux_t[t-1] + delta_t * (1.0 + rand(u, 1)[1])  
+        aux_t[t] = aux_t[t-1]  + delta_tau
+
         xi_t = rand(eta_t, 1)[1];
         aux_k[t] = abs(xi_t)
-        print("\n t: ",
-            t,
-            "\tt_delivery: ",
-             t_delivery[t],
-             "\t", aux_t[t],
-             "\t", k_stock[t],
-             "\t", xi_t
-        )
+#        print("\n t: ",
+#            t,
+#            "\tt_delivery: ",
+#             t_delivery[t],
+#             "\t", aux_t[t],
+#             "\t", k_stock[t],
+#             "\t", xi_t
+#        )
     end
     print("\n")
     par.t_delivery = aux_t

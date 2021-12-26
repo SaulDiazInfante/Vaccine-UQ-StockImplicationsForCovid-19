@@ -1,5 +1,5 @@
 using JSON, DataFrames, Distributions, CSV
-using PlotlyJS, LaTeXStrings
+using PlotlyJS, LaTeXStrings, ProgressMeter
 import Dates
 include("load_parameters.jl")
 include("rhs_evaluation.jl")
@@ -29,7 +29,15 @@ function montecarlo_sampling(
     insertcols!(df, 13, :idx_path => idx_path);
     df_mc = [df_mc; df]
     df_par = [df_par; parameters];
-    for idx in 2:sampling_size 
+    n = sampling_size
+    p = Progress(
+        n,
+        dt=0.5,
+        barglyphs=BarGlyphs("[=> ]"),
+        barlen=50,
+         color=:yellow
+    )
+    for idx in 2:sampling_size
         par = get_stochastic_perturbation();
         x0, df = get_solution_path!(par);
         idx_path_par = idx * ones(Int64, size(par)[1]);
@@ -37,7 +45,11 @@ function montecarlo_sampling(
         insertcols!(par, 31, :idx_path => idx_path_par);
         insertcols!(df, 13, :idx_path => idx_path);
         df_par = [df_par; par];        
-        df_mc = [df_mc; df]   
+        df_mc = [df_mc; df];
+        ProgressMeter.next!(
+            p; 
+            showvalues = [(:it, idx)]
+        )   
     end
     # saving par time seires
     prefix_file_name = "df_par("
