@@ -11,8 +11,8 @@ function get_stochastic_perturbation(
     aux_k = zeros(length(t_delivery))
     delta_t = 0.0
     t=1
-    aux_t[t] = t_delivery[t]
-    aux_k[t] = k_stock[t]
+    aux_t[t] = t_delivery[t];
+    aux_k[t] = k_stock[t];
     for t in 2: length(t_delivery)
         eta_t = Normal(k_stock[t], 0.1 * k_stock[t])
         delta_t = t_delivery[t] - t_delivery[t-1]
