@@ -1,5 +1,5 @@
 using JSON, DataFrames, Distributions, CSV
-using PlotlyJS, LaTeXStrings, ProgressMeter
+using PlotlyJS, LaTeXStrings
 import Dates, ProgressMeter
 include("load_parameters.jl")
 include("rhs_evaluation.jl")

@@ -1,6 +1,6 @@
 using JSON, DataFrames, Distributions, CSV
 using PlotlyJS, LaTeXStrings
-using Interpolations
+using Interpolations, ProgressMeter
 include("get_interpolated _solution.jl")
 include("load_parameters.jl")
 #path = "./data/df_mc(2021-12-27_16:36).csv"
@@ -20,6 +20,8 @@ interpolated_trajectory_1 =
 idx_path = unique(trajectories, :idx_path).idx_path
 df_interpolated = DataFrame()
 df_interpolated = [df_interpolated; interpolated_trajectory_1]
+n  = size(idx_path[2: end])[1]
+p = Progress(n, 1, "Interpolating");
 for j in idx_path[2:end]
     idx_j = (trajectories.idx_path .== j);
     trajectory_j = trajectories[idx_j, :];
@@ -27,6 +29,7 @@ for j in idx_path[2:end]
     interpolated_trajectory_j = 
         get_interpolated_solution(trajectory_j, line_time)
     df_interpolated = [df_interpolated; interpolated_trajectory_j]
+    next!(p)
 end
  # saving interpolated time seires
  prefix_file_name = "df_interpolated("
