@@ -3,7 +3,8 @@ using PlotlyJS, LaTeXStrings
 using Interpolations
 include("get_interpolated _solution.jl")
 include("load_parameters.jl")
-path = "./data/df_mc(2021-12-27_16:36).csv"
+#path = "./data/df_mc(2021-12-27_16:36).csv"
+path = "./data/df_mc.csv"
 trajectories = CSV.read(path, DataFrame);
 dropmissing!(trajectories)
 # obtain dimmensions
@@ -22,8 +23,7 @@ df_interpolated = [df_interpolated; interpolated_trajectory_1]
 for j in idx_path[2:end]
     idx_j = (trajectories.idx_path .== j);
     trajectory_j = trajectories[idx_j, :];
-    print("\n path: ", j)
-    # TODO check path 363
+    #print("\n path: ", j)
     interpolated_trajectory_j = 
         get_interpolated_solution(trajectory_j, line_time)
     df_interpolated = [df_interpolated; interpolated_trajectory_j]
