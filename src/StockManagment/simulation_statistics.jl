@@ -121,6 +121,18 @@ for t in time_[2:end]
     df_lower_q_path = [df_lower_q_path; df_lower_q_path_]
     df_upper_q_path = [df_upper_q_path; df_upper_q_path_]
 end
+prefix_file_names = ["df_median", "df_lower_q", "df_upper_q"]
+data = [df_median_path, df_lower_q_path, df_upper_q_path]
+d = Dates.now()
+sufix=".csv"
+tag = "(" * Dates.format(d, "yyyy-mm-dd_HH:MM)") 
+for i = 1:3 
+    prefix = prefix_file_names[i]
+    csv_file_name_ = "./data/" * prefix  * sufix_file_name
+    csv_file_name = "./data/" * prefix * tag * sufix_file_name
+    CSV.write(csv_file_name_, data[i])
+    CSV.write(csv_file_name, data[i])
+end
 
 N = parameters.N[1]
 trace1 = 
