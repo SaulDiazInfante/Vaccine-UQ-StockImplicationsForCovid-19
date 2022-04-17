@@ -14,11 +14,14 @@ function get_stochastic_perturbation(
     aux_t[t] = t_delivery[t];
     aux_k[t] = k_stock[t];
     for t in 2: length(t_delivery)
-        eta_t = Normal(k_stock[t], 0.1 * k_stock[t]);
+        eta_t = TruncatedNormal(
+            k_stock[t], 
+            0.5 * sqrt(k_stock[t]), 0 , 2 * k_stock[t]);
+        
         delta_t = t_delivery[t] - t_delivery[t-1];
-        # tau = Normal(0 , sqrt(delta_t))
+        tau = Normal(delta_t , 1.0 * sqrt(delta_t))
         # tau = Uniform(.25 * delta_t, 1.5 * delta_t) 
-        tau = Exponential(64.0); 
+        # tau = Exponential(64.0); 
         delta_tau = rand(tau, 1)[1];
         # aux_t[t] = aux_t[t-1] + delta_t * (1.0 + rand(u, 1)[1])  
         aux_t[t] = aux_t[t-1]  + delta_tau;
@@ -29,3 +32,18 @@ function get_stochastic_perturbation(
     par.k_stock = aux_k;
     return par;
 end
+# Benchmark
+#= df_sto_time = DataFrame() 
+insertcols!(df_sto_time, 1, :time => par.t_delivery);
+insertcols!(df_sto_time, 1, :index => 1);
+
+for j in 1:1000
+    sample_j = DataFrame()
+    par = get_stochastic_perturbation()
+    insertcols!(sample_j, 1, :time => par.t_delivery);
+    insertcols!(sample_j, 1, :index => j);
+    df_sto_time = [df_sto_time; sample_j]
+end
+
+df_sto_time
+ =#
