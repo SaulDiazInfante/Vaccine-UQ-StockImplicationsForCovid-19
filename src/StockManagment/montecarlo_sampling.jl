@@ -43,18 +43,17 @@ function montecarlo_sampling(
         next!(p)   
     end
     # saving par time seires
-    prefix_file_name = "df_par("
+    prefix_file_name = "df_par"
     #
     d = Dates.now()
     tag = "(" * Dates.format(d, "yyyy-mm-dd_HH:MM)") 
     sufix_file_name = ".csv"
     csv_file_name = prefix_file_name * tag * sufix_file_name
     path_par = "./data/" * csv_file_name
-    CSV.write(path_par, df_par)   
+    CSV.write(path_par, df_par)
     # 
     prefix_file_name = "df_mc"
-    CSV.write("./data/df_mc.csv", df_mc)
-    csv_file_name = prefix_file_name * tag * sufix_file_name
+    csv_file_name = prefix_file_name * sufix_file_name
     path_mc = "./data/" * csv_file_name
     CSV.write(path_mc, df_mc)
     return df_par, df_mc, path_par, path_mc

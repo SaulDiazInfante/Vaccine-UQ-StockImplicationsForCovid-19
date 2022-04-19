@@ -32,10 +32,10 @@ for j in idx_path[2:end]
     next!(p)
 end
  # saving interpolated time seires
- prefix_file_name = "df_interpolated("
+ prefix_file_name = "df_interpolated"
  #
  d = Dates.now()
- tag = Dates.format(d, "yyyy-mm-dd_HH:MM)") 
+ tag = "(" * Dates.format(d, "yyyy-mm-dd_HH:MM)") 
  sufix_file_name = ".csv"
  csv_file_name = prefix_file_name * tag * sufix_file_name
  path_par = "./data/" * csv_file_name
@@ -160,3 +160,5 @@ fig = PlotlyJS.plot([trace1, trace2, trace3])
 open("./plot_fig3.html", "w") do io
     PlotlyBase.to_html(io, fig.plot)
 end
+
+# subset(df_interpolated, :K_stock=> ByRow(<=(0)))

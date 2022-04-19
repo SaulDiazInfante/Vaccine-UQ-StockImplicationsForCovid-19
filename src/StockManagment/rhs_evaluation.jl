@@ -63,9 +63,14 @@ function rhs_evaluation!(t, x, a_t, k, parameters)
     CL_new = sum(x_new)
     delta_X_vac = (a_t) * (S + E + I_A + R) * psi
     X_vac_new =  X_vac + delta_X_vac
-    efective_stock = sign(k - (X_vac_new - X_vac_interval) - stock_condition) < 0.0
+    sign_efective_stock = 
+        sign(
+                k - (X_vac_new - X_vac_interval) - stock_condition
+        )
+    sign_efective_stock_test = (sign_efective_stock< 0.0)
+    
     # TODO: Fix Stock    
-    if efective_stock
+    if sign_efective_stock_test
         X_C = k - parameters.low_stock[1] / parameters.N[1]
         T_index = get_stencil_projection(t, parameters) + 1
         t_lower_interval = parameters.t_delivery[T_index]
@@ -106,7 +111,7 @@ function rhs_evaluation!(t, x, a_t, k, parameters)
         delta_X_vac = (a_t) * (S + E + I_A + R) * psi
         X_vac_new =  X_vac + delta_X_vac
     end
-    K_new = maximum([0.0, k - (X_vac_new - X_vac_interval)] )
+    K_new = maximum([0.0, k - (X_vac_new - X_vac_interval)])
     x_new[8] = CL_new
     x_new[9] = X_vac_new
     x_new[10] = K_new

@@ -17,7 +17,7 @@ include("montecarlo_sampling.jl")
 
 # Setup
 Random.seed!(123)
-sampling_size = 100
+sampling_size = 5000
 df_par, df_mc, path_par, path_mc = montecarlo_sampling(sampling_size) 
 last_trajectory_path = "./data/df_solution.csv"
 parameters = load_parameters()
