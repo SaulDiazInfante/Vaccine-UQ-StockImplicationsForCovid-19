@@ -57,5 +57,37 @@ axes_states[1, 2].set_ylabel(r'$X_{vac}$')
 plt.savefig("det_states.svg", dpi=300)
 figure_states.tight_layout()
 plt.show()
+
+policy = [
+    #'S',
+    #'E',
+    #'I_S',
+    #'I_A',
+    #'D',    
+    #'R', 
+    #'V', 
+    #'X_vac',
+    'K_stock',
+    'action'
+]
+
+df_policy = N * df[policy]
+figure_policy, axes_policy = plt.subplots(
+    figsize=(14, 8.7),
+    nrows=2,
+    ncols=1
+)
+df_policy.plot(
+    subplots=True,
+    layout=(2, 1),
+    ax=axes_policy, 
+    sharex=True,
+    label="deterministic",
+    lw=1, 
+    legend=False
+)
+plt.savefig("det_policy.png", dpi=300)
+figure_states.tight_layout()
+plt.show()
 ## Incidence figures
 #
