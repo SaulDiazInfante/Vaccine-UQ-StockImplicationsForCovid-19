@@ -4,10 +4,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+#
 plt.style.use('fivethirtyeight')
-
-#TODO: convert to timeseries and plot
+#
 data_folder = "./data"
 df_m = pd.read_csv("data/df_median.csv")
 df_l = pd.read_csv("data/df_lower_q.csv")
@@ -73,8 +72,59 @@ df_u_states.plot(
     label="",
     legend=False
     )
-#plt.legend(False)
+axes_states[0].set_ylabel(r'$I_S$')
+axes_states[1].set_ylabel(r'$D$')
+axes_states[2].set_ylabel(r'$V$')
+axes_states[3].set_ylabel(r'$X_{vac}$')
+plt.savefig("ci_states.svg", dpi=300)
 plt.show()
+## Incidence figures
+#
+#
+figure_Is, axes_Is = plt.subplots(
+    figsize=(14, 8.7),
+    nrows=1,
+    ncols=1
+)
+df_l_states['I_S'].plot(
+    ax=axes_Is, 
+    sharex=True,
+    lw=1,
+    color='red',
+    label="",
+    legend=False
+)
+df_u_states['I_S'].plot(
+    ax=axes_Is, 
+    sharex=True,
+    lw=1,
+    color='red',
+    label="",
+    legend=False
+)
+
+plt.fill_between(df_l_states.index,
+    df_l_states['I_S'],
+    df_u_states['I_S'],
+    fc='pink',
+    alpha=0.5,
+    figure=figure_Is
+)
+df_m_states['I_S'].plot(
+    ax=axes_Is, 
+    sharex=True,
+    lw=2,
+    color='red',
+    label="",
+    legend=False
+)
+plt.savefig("symptomatic_incidence.svg", dpi=300)
+
+
+
+
+
+
 
 figure_policy, axes_policy = plt.subplots(
     figsize=(14, 8.7),
